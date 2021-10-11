@@ -14,20 +14,32 @@ import java.util.Scanner;
 public class TicTacToe {
     public static Scanner sc = new Scanner(System.in);
     public static char[] board = new char[10];
+    public static char userChoice;
 
     public static void main(String[] args) {
         System.out.println("Welcome to Tic-Tac-Toe Game");
         createBoard();
         chooseChoice();
-        showBoard();
+        currentBoard();
+        selectIndex();
     }
-    //create a method for board
+    //create a method is board
     public static void createBoard() {
         for (int i = 1; i < board.length; i++) {
             board[i] = ' ';
         }
     }
-    //create a method for showboard
+    //create a method is current board
+
+    private static void currentBoard() {
+        for (int i = 1; i < 10; i++) {
+            if (board[i] != 'X' && board[i] != 'O') {
+                board[i] = (char) (i + 'O');
+            }
+        }
+        showBoard();
+    }
+    //create a method is show board
     public static void showBoard() {
         System.out.println();
         System.out.println("     |     |     ");
@@ -38,20 +50,31 @@ public class TicTacToe {
         System.out.println("   " + board[7] + " |   " + board[8] + " | " + board[9] + " ");
         System.out.println("     |     |     ");
     }
-    // create a method for player choose O or X
+    //create a method is choosechoice
     static void chooseChoice() {
         System.out.println("Choose X or O");
-        char a = sc.next().charAt(0);
-        if (a == 'O') {
-            System.out.println("Player choice is " + a);
+        userChoice = sc.next().charAt(0);
+        if (userChoice == 'O') {
+            System.out.println("Player choice is " + userChoice);
             System.out.println("Computer choice is X");
-        } else if (a == 'X') {
-            System.out.println("Player choice is " + a);
+        } else if (userChoice == 'X') {
+            System.out.println("Player choice is " + userChoice);
             System.out.println("Computer choice is O");
         } else {
             System.out.println("Entered wrong input");
+            chooseChoice();
         }
-
+    }
+    //create a method is select index
+    public static void selectIndex() {
+        System.out.print("Select number between 1 and 9 :");
+        int indexNumber = sc.nextInt();
+        for (int i = 0; i < board.length; i++) {
+            if ((i) == indexNumber) {
+                board[i] = userChoice;
+            }
+        }
+        currentBoard();
     }
 }
 
